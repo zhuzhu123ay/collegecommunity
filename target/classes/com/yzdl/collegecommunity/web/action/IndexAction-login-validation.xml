@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC  
+        "-//Apache Struts//XWork Validator 1.0.2//EN"  
+        "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">  
+ <validators>  
+    <!-- 字段校验器，校验username属性 -->  
+    <field name="username">  
+        <!-- 配置必填字符串校验器 -->  
+        <field-validator type="requiredstring">  
+            <!-- 通过key指定国际化资源文件 -->  
+            <message key="user.required"/>  
+        </field-validator>  
+    </field>  
+    <!-- 字段校验器，校验password属性 -->  
+     <field name="password">  
+        <!-- 配置必填字符串校验器 -->  
+        <field-validator type="requiredstring" short-circuit="true">  
+            <message>用户名不能为空</message>  
+        </field-validator>  
+        <!-- 密码长度必须是3到6位 -->  
+        <field-validator type="stringlength">  
+            <param name="minLength">3</param>  
+            <param name="maxLength">6</param>  
+            <message>密码长度必须是3到6位</message>  
+        </field-validator>  
+     </field>  
+ </validators> 
