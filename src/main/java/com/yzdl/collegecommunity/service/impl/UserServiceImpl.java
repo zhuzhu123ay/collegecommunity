@@ -53,5 +53,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 		return rankList;
 	}
 
+	
+
 
 }

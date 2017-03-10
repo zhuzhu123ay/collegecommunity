@@ -58,7 +58,7 @@ $(function(){
    <div class="collapse navbar-collapse" id="example-navbar-collapse">
       <ul class="nav navbar-nav baseUI">
          <li url="toTaskHall.action"><a>任务大厅</a></li>
-         <li url="toSecondMarket.action"><a>二手市场</a></li>
+         <li url="toGoodsHall.action"><a>二手市场</a></li>
          <li url="toCollect.action"><a>我的收藏</a></li>
          <li url="toRankingList.action"><a>排行榜</a></li>
       </ul>
