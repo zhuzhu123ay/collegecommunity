@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
   <fixed facet="wst.jsdt.web"/>
@@ -7,3 +8,13 @@
   <installed facet="jst.jsf" version="2.2"/>
   <installed facet="jst.jaxrs" version="2.0"/>
 </faceted-project>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <fixed facet="wst.jsdt.web"/>
+  <installed facet="jst.web" version="3.0"/>
+  <installed facet="wst.jsdt.web" version="1.0"/>
+  <installed facet="java" version="1.8"/>
+  <installed facet="maven" version="1.0"/>
+</faceted-project>
+>>>>>>> 543f3ab004d667d15c5800605e0106f034a4ba7c
