@@ -35,15 +35,52 @@ $(function(){
 	});
 	//默认激发第一个li
 	$(".baseUI li:first").trigger("click");
-});	
-
+	
 //websocket
-	var webSocket=new WebSocket("ws://127.0.0.1:8888/");
+	var webSocket=null;   
+	window.WebSocket = window.WebSocket || window.MozWebSocket;  
+	if (!window.WebSocket) { 
+		alert('Error: WebSocket is not supported .'); 
+	}else{ 
+		webSocket=new WebSocket("ws://127.0.0.1:8888/collegecommunity/websockt/chat");
+	}  
+	var sendMsg=function(){
+		var msg=document.getElementById("msg");
+		var username=document.getElementById("username");
+		var publish_username=document.getElementById("publish_username");
+			alert(msg.value+publish_username+username.value);
+			webSocket.send(msg.value+","+publish_username.value+","+username.value);
+			msg.value="";
+	}
+	
+	var send=function(event){
+		if(event.keyCode==13){
+			sendMsg();
+		}
+	};
+	
+	webSocket.onopen=function(){
+		webSocket.onmessage=function(event){
+			var show=document.getElementById("show");
+			show.innerHTML+=event.data+"<br/>";
+			show.scrollTop=show.scrollHeight;
+		}
+		document.getElementById("msg").onkeydown=send;
+		document.getElementById("send").onclick=sendMsg;
+	};
+	webSocket.onclose=function(){
+		document.getElementById("msg").onkeydown=null;
+		document.getElementById("send").onclick=null;
+		/* Console.log("webSocket已关闭"); */
+	};
+	
+});	
 </script>
 
 <title>大学生社区-首页</title>
 </head>
 <body style="padding-top:50px;">
+<div id="s"></div>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" 
@@ -65,6 +102,8 @@ $(function(){
        <ul class="nav navbar-nav navbar-right">
        	<li><a>在线用户人数：${fn:length(alluser)}</a></li>
         <li><a>欢迎您:${user.username }</a></li>
+        <input type="hidden" id="username" name="username" value="${user.username }">
+        <input type="hidden" id="publish_username" name="publish_username" value="${publish_username}">
         <li><a href="logout.action" style="margin-right:20px;" class="pull-right">退出</a></li>
       </ul>
    </div>
@@ -112,14 +151,15 @@ $(function(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">聊天室</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="show">
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary">发送</button>
+      	
+        <input type="text" class="btn btn-default" id="msg" name="msg">
+        <button type="button" class="btn btn-primary" id="send">发送</button>
       </div>
     </div>
   </div>

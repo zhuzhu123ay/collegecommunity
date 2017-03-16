@@ -38,8 +38,19 @@
 	</properties>
 
 	<dependencies>
-		<!-- <dependency> <groupId>com.shiyue.sysesp</groupId> <artifactId>sysesp-core-service</artifactId> 
-			<version>${sysesp.core.service.version}</version> </dependency> -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.22</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+			
 		<!-- ========= Spring begin ======== -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -138,6 +149,14 @@
 			<groupId>javax.transaction</groupId>
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+		<dependency>
+		    <groupId>javax</groupId>
+		    <artifactId>javaee-api</artifactId>
+		    <version>7.0</version>
+		    <scope>provided</scope>
 		</dependency>
 
 		<!-- ========= Struts2.3.4 begin========= -->

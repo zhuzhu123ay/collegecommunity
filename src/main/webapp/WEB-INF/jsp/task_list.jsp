@@ -58,6 +58,11 @@
 					$(".listContent").load("toTaskList.action");
 				});
 			}
+		});
+	$(".chat").off();
+	$(".chat").on("click", function() {
+		var publish_username=$(this).attr("val");
+		$.post("login.action?username=rrr&password=rrr",{publish_username:publish_username});
 	});
 </script>
 <div class="row publishBox" style="border: 1px solid #ccc">
@@ -83,6 +88,7 @@
 		</div>
 		<input type="hidden" val="${user.publishTimes }" class="hidden">
 		<input type="hidden" val="${user.acceptTimes }" class="hidden2">
+		
 	</form>
 </div>
 
@@ -90,7 +96,7 @@
 		<c:forEach items="${taskList }" var="t">
 			<c:if test="${empty t.accept_user }">
 				<div class="row" style="border: 1px solid #ccc">
-					<div>发布者：${t.publish_user.username }</div>
+					<div id="publish_user">${t.publish_user.username }</div>
 					<div class="pull-right">发布日期：${t.publisurDate }</div> 
 					<div>任务描述：${t.description }</div>
 					<div>酬金：${t.pay }</div>
@@ -108,7 +114,7 @@
 							  <c:if test="${flag==false}">收藏</c:if>
 						</a>
 						<div class="pull-right btn">已收藏${t.collectTimes>0?t.collectTimes:0 }次</div>
-						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+						<button  val="${t.publish_user.username }" type="button" class="btn btn-success chat" data-toggle="modal" data-target="#myModal">
 							联系对方
 						</button>
 					</c:if>

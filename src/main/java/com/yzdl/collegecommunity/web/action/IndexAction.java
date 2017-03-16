@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.yzdl.collegecommunity.bean.User;
+import com.yzdl.collegecommunity.common.util.MailUtils;
 import com.yzdl.collegecommunity.service.IUserService;
 
 import org.apache.struts2.convention.annotation.ParentPackage; 
 
 @ParentPackage("struts-default")
-public class IndexAction extends ActionSupport {
+public class IndexAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +27,10 @@ public class IndexAction extends ActionSupport {
 	private String re_password;
 	private String gender;
 	private String telephone;
-	
+	private String mail;
+	private Integer validate;
+	private String publish_username;
+	private static Integer re_validate;
 	/**
 	 * 跳转到登录页
 	 * http://localhost:8888/csc/toLogin.action
@@ -81,8 +85,8 @@ public class IndexAction extends ActionSupport {
 	public String register(){
 		String flag="success";
 		String defaultpath="images/defaultPhoto.jpg";
-		User user=new User(null, username, password, gender, telephone,0,0,0,0,defaultpath,null,null);
-		if(password.equals(re_password)){			
+		User user=new User(null, username, password, gender, telephone,0,0,0,0,defaultpath,mail,null,null);
+		if(password.equals(re_password)&&re_validate.equals(validate)){			
 			try {
 				userService.register(user);
 			} catch (Exception e) {
@@ -91,11 +95,25 @@ public class IndexAction extends ActionSupport {
 				flag="error";
 			}
 		}else{
-			msg="两次输入的密码不一致";
+			msg="密码不一致或验证码输入错误!";
 			flag="error";			
 		}
 		return flag;
 	}
+	
+	
+	//发送验证码
+	@Action(value="validated")
+	public void validated(){
+		try {
+			re_validate=MailUtils.sendMail(mail);
+			System.out.println(re_validate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/**
 	 * 退出
 	 * http://localhost:8888/csc/logout.action
@@ -155,4 +173,30 @@ public class IndexAction extends ActionSupport {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public Integer getValidate() {
+		return validate;
+	}
+
+	public void setValidate(Integer validate) {
+		this.validate = validate;
+	}
+
+	public String getPublish_username() {
+		return publish_username;
+	}
+
+	public void setPublish_username(String publish_username) {
+		this.publish_username = publish_username;
+	}
+
+	
 }

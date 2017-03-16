@@ -3,6 +3,7 @@ package com.yzdl.collegecommunity.web.action;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
@@ -10,6 +11,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.interceptor.ServletResponseAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -21,12 +23,14 @@ import com.yzdl.collegecommunity.service.IUserService;
 
 @ParentPackage("csc-package")
 @InterceptorRef(value="cscAuthStack")
-public class TaskAction extends ActionSupport{
+public class TaskAction extends ActionSupport implements ServletResponseAware{
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private ITaskService taskService;
 	@Autowired
 	private IUserService userService;
+	
+	private HttpServletResponse response;
 	
 	private List<Task> taskList;
 	private String description;
@@ -35,7 +39,6 @@ public class TaskAction extends ActionSupport{
 	private List<Task> publishList;
 	private String msg;
 	private List<Task> acceptList;
-	
 	
 	private PageBean pageBean; //封装了分页信息和数据内容的pageBean    
 	private int pageSize;
@@ -62,8 +65,16 @@ public class TaskAction extends ActionSupport{
 	public String toTaskList(){
 		taskList=taskService.findAll();
 		/*this.pageBean = taskService.queryForPage(pageSize, 1);//获取封装了分页信息和数据的pageBean 
-		this.taskList = this.pageBean.getList(); //获取数据    
-*/		return SUCCESS;
+		this.taskList = this.pageBean.getList(); //获取数据    */
+		
+		/*String str = JSON.toJSONString(taskList);
+		
+		try {
+			response.getWriter().write(str);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}*/
+		return SUCCESS;
 	}
 	
 	
@@ -266,6 +277,11 @@ public class TaskAction extends ActionSupport{
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
 	}
 
 }

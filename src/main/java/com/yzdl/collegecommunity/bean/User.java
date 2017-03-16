@@ -31,6 +31,7 @@ public class User implements Serializable {
 	private Integer finishTimes;//完成次数
 	private Integer integrate; //积分
 	private String path;//用户头像
+	private String mail;//用户邮箱
 	
 	private Set<TU> task_users=new HashSet<TU>();
 	private Set<GU> goods_users=new HashSet<GU>();
@@ -39,8 +40,9 @@ public class User implements Serializable {
 	
 	}
 
+
 	public User(Long id, String username, String password, String gender, String telephone, Integer publishTimes,
-			Integer acceptTimes, Integer finishTimes, Integer integrate, String path, Set<TU> task_users,
+			Integer acceptTimes, Integer finishTimes, Integer integrate, String path, String mail, Set<TU> task_users,
 			Set<GU> goods_users) {
 		super();
 		this.id = id;
@@ -53,6 +55,7 @@ public class User implements Serializable {
 		this.finishTimes = finishTimes;
 		this.integrate = integrate;
 		this.path = path;
+		this.mail = mail;
 		this.task_users = task_users;
 		this.goods_users = goods_users;
 	}
@@ -146,6 +149,16 @@ public class User implements Serializable {
 
 	public void setGoods_users(Set<GU> goods_users) {
 		this.goods_users = goods_users;
+	}
+
+
+	public String getMail() {
+		return mail;
+	}
+
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 	

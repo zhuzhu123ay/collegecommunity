@@ -11,9 +11,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath %>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".sended").off();
+	$(".sended").on("click",function(){
+		var mail=$(".mail").val();
+		$.post("validated.action",{mail:mail},function(){
+			alert("发送成功，请注意查收");
+		}); 
+	}); 
+});
+	
+</script>
 </head>
 <body>
-	<center>
+	<center class="content">
 		<h1>用户注册</h1>
 		<div style="color:red">${msg }</div>
 		<form action="register.action" method="POST">
@@ -56,6 +68,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>手机号</td>
 				<td>
 					<input type="text" name="telephone"/>
+				</td>
+			</tr>
+			<tr>
+				<td>邮箱</td>
+				<td>
+					<input type="text" name="mail" class="mail"/>
+				</td>
+			</tr>
+			<tr>
+				<td><a class="sended" href="javascript:alter(1)">发送验证码</a></td>
+				<td>
+					<input type="text" name="validate"/>
 				</td>
 			</tr>
 			<tr>
